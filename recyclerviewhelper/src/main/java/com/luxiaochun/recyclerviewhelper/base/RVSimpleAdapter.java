@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.luxiaochun.recyclerviewhelper.cell.EmptyCell;
 import com.luxiaochun.recyclerviewhelper.cell.ErrorCell;
-import com.luxiaochun.recyclerviewhelper.cell.LoadMoreCell;
 import com.luxiaochun.recyclerviewhelper.cell.LoadingCell;
 
 
@@ -22,9 +21,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     private EmptyCell mEmptyCell;
     private ErrorCell mErrorCell;
     private LoadingCell mLoadingCell;
-    private LoadMoreCell mLoadMoreCell;
     //LoadMore 是否已显示
-    private boolean mIsShowLoadMore = false;
     private boolean mIsShowError = false;
     private boolean mIsShowLoading = false;
     private boolean mIsShowEmpty = false;
@@ -34,7 +31,6 @@ public class RVSimpleAdapter extends RVBaseAdapter {
         mEmptyCell = new EmptyCell(null);
         mErrorCell = new ErrorCell(null);
         mLoadingCell = new LoadingCell(null);
-        mLoadMoreCell = new LoadMoreCell(null);
     }
 
     @Override
@@ -48,8 +44,8 @@ public class RVSimpleAdapter extends RVBaseAdapter {
                 @Override
                 public int getSpanSize(int position) {
                     int viewType = getItemViewType(position);
-                    return (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId || viewType == LoadingCell.DefaultResId
-                            || viewType == LoadMoreCell.DefaultResId) ? gridLayoutManager.getSpanCount() : 1;
+                    return (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId
+                            || viewType == LoadingCell.DefaultResId) ? gridLayoutManager.getSpanCount() : 1;
                 }
             });
         }
@@ -62,8 +58,8 @@ public class RVSimpleAdapter extends RVBaseAdapter {
         int position = holder.getAdapterPosition();
         int viewType = getItemViewType(position);
         if (isStaggeredGridLayout(holder)) {
-            if (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId || viewType == LoadingCell.DefaultResId
-                    || viewType == LoadMoreCell.DefaultResId) {
+            if (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId
+                    || viewType == LoadingCell.DefaultResId) {
 
                 StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
                 //设置显示整个span
@@ -169,58 +165,6 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     }
 
     /**
-     * 显示LoadMoreView
-     * <p>当列表滑动到底部时，调用{@link #showLoadMore()} 提示加载更多，加载完数据，调用{@link #hideLoadMore()}
-     * 隐藏LoadMoreView,显示列表数据。</p>
-     */
-    public void showLoadMore() {
-        if (mData.contains(mLoadMoreCell)) {
-            return;
-        }
-        checkNotContainSpecailCell();
-        add(mLoadMoreCell);
-        mIsShowLoadMore = true;
-    }
-
-    /**
-     * 指定显示的LoadMore View
-     *
-     * @param loadMoreView
-     */
-    public void showLoadMore(View loadMoreView) {
-        if (loadMoreView == null) {
-            showLoadMore();
-            return;
-        }
-        checkNotContainSpecailCell();
-        //设置默认高度
-        mLoadMoreCell.setCustomView(loadMoreView.getId());
-        mIsShowLoadMore = true;
-        add(mLoadMoreCell);
-    }
-
-    /**
-     * 隐藏LoadMoreView
-     * <p>调用{@link #showLoadMore()}之后，加载数据完成，调用{@link #hideLoadMore()}隐藏LoadMoreView</p>
-     */
-    public void hideLoadMore() {
-        if (mData.contains(mLoadMoreCell)) {
-            remove(mLoadMoreCell);
-            mIsShowLoadMore = false;
-        }
-    }
-
-    /**
-     * LoadMore View 是否已经显示
-     *
-     * @return
-     */
-    public boolean isShowLoadMore() {
-        return mIsShowLoadMore;
-    }
-
-
-    /**
      * 显示空view
      * <p>当页面没有数据的时候，调用{@link #showEmpty()}显示空View，给用户提示</p>
      */
@@ -274,9 +218,6 @@ public class RVSimpleAdapter extends RVBaseAdapter {
         if (mData.contains(mLoadingCell)) {
             mData.remove(mLoadingCell);
         }
-        if (mData.contains(mLoadMoreCell)) {
-            mData.remove(mLoadMoreCell);
-        }
     }
 
     /**
@@ -287,7 +228,6 @@ public class RVSimpleAdapter extends RVBaseAdapter {
         mIsShowError = false;
         mIsShowLoading = false;
         mIsShowEmpty = false;
-        mIsShowLoadMore = false;
         super.clear();
     }
 }

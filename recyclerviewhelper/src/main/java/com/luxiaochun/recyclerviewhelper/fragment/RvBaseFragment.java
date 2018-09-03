@@ -1,11 +1,8 @@
 package com.luxiaochun.recyclerviewhelper.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +16,12 @@ import android.widget.FrameLayout;
 import com.luxiaochun.recyclerviewhelper.R;
 import com.luxiaochun.recyclerviewhelper.base.Cell;
 import com.luxiaochun.recyclerviewhelper.base.RVSimpleAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -33,7 +36,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
     private FrameLayout titleLayout;
     protected RecyclerView mRecyclerView;
     protected RVSimpleAdapter mBaseAdapter;
-    protected SwipeRefreshLayout mSwipeRefreshLayout;
+    protected SmartRefreshLayout refreshLayout;
     /**
      * RecyclerView 最后可见Item在Adapter中的位置
      */
@@ -50,19 +53,34 @@ public abstract class RvBaseFragment<T> extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         titleLayout = view.findViewById(R.id.title_layout);
-        mSwipeRefreshLayout = view.findViewById(R.id.base_refresh_layout);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.base_fragment_rv);
         mRecyclerView.setLayoutManager(initLayoutManger());
 
         mBaseAdapter = initAdapter();
         mRecyclerView.setAdapter(mBaseAdapter);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                setRefreshing(true);
-                onPullRefresh();
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000);//传入false表示刷新失败
             }
         });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000);//传入false表示加载失败
+            }
+        });
+        refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()));
+//设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()));
+//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                setRefreshing(true);
+//                onPullRefresh();
+//            }
+//        });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -165,67 +183,6 @@ public abstract class RvBaseFragment<T> extends Fragment {
             }
         }
         return max;
-    }
-
-    /**
-     * 设置刷新进度条的颜色
-     * see{@link SwipeRefreshLayout#setColorSchemeResources(int...)}
-     *
-     * @param colorResIds
-     */
-    public void setColorSchemeResources(@ColorRes int... colorResIds) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setColorSchemeResources(colorResIds);
-        }
-    }
-
-    /**
-     * 设置刷新进度条的颜色
-     * see{@link SwipeRefreshLayout#setColorSchemeColors(int...)}
-     *
-     * @param colors
-     */
-    public void setColorSchemeColors(int... colors) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setColorSchemeColors(colors);
-        }
-    }
-
-    /**
-     * 设置刷新进度条背景色
-     * see{@link SwipeRefreshLayout#setProgressBackgroundColorSchemeResource(int)} (int)}
-     *
-     * @param colorRes
-     */
-    public void setProgressBackgroundColorSchemeResource(@ColorRes int colorRes) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(colorRes);
-        }
-    }
-
-    /**
-     * 设置刷新进度条背景色
-     * see{@link SwipeRefreshLayout#setProgressBackgroundColorSchemeColor(int)}
-     *
-     * @param color
-     */
-    public void setProgressBackgroundColorSchemeColor(@ColorInt int color) {
-        if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(color);
-        }
-    }
-
-    /**
-     * Notify the widget that refresh state has changed. Do not call this when
-     * refresh is triggered by a swipe gesture.
-     *
-     * @param refreshing Whether or not the view should show refresh progress.
-     */
-    public void setRefreshing(boolean refreshing) {
-        if (mSwipeRefreshLayout == null) {
-            return;
-        }
-        mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
     /**

@@ -31,6 +31,4 @@ public class LoadingCell extends RVAbsStateCell {
     public void bindViewHolder(RVBaseViewHolder holder, int position) {
 
     }
-
-
 }

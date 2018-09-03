@@ -46,13 +46,11 @@ public class RecyclerViewFragment extends RvBaseFragment {
             dataList.add(bean);
         }
         mBaseAdapter.hideLoading();
-        mBaseAdapter.showError();
         mBaseAdapter.setData(getCells(dataList));
     }
 
     @Override
     public void onPullRefresh() {
-        setRefreshing(false);
     }
 
     @Override
