@@ -1,6 +1,7 @@
 package com.luxiaochun.recyclerviewutils;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.luxiaochun.recyclerviewhelper.base.Cell;
 import com.luxiaochun.recyclerviewhelper.fragment.RvBaseFragment;
@@ -38,7 +39,7 @@ public class RecyclerViewFragment extends RvBaseFragment {
     public void onRecyclerViewInitialized() {
         mBaseAdapter.showLoading();
         ArrayList<PersonBean> dataList = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             PersonBean bean = new PersonBean();
             bean.setName("姓名" + i + "");
             bean.setAge("20");
@@ -50,12 +51,21 @@ public class RecyclerViewFragment extends RvBaseFragment {
     }
 
     @Override
-    public void onPullRefresh() {
+    public void onRefresh() {
+        Toast.makeText(this.getActivity(), "更新啦", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoadMore() {
-        hideLoadMore();
+        ArrayList<PersonBean> dataList = new ArrayList<>();
+        for (int i = 10; i < 20; i++) {
+            PersonBean bean = new PersonBean();
+            bean.setName("姓名" + i + "");
+            bean.setAge("20");
+            bean.setPhone("18956321458");
+            dataList.add(bean);
+        }
+        mBaseAdapter.addAll(getCells(dataList));
     }
 
     @Override

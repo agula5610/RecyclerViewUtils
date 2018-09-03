@@ -1,12 +1,11 @@
 package com.luxiaochun.recyclerviewhelper.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,69 +51,41 @@ public abstract class RvBaseFragment<T> extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initView(view);
+        initRefreshListener();
+        initRecycleView();
+        onRecyclerViewInitialized();
+    }
+
+    private void initView(View view) {
         titleLayout = view.findViewById(R.id.title_layout);
         refreshLayout = view.findViewById(R.id.refreshLayout);
         mRecyclerView = view.findViewById(R.id.base_fragment_rv);
         mRecyclerView.setLayoutManager(initLayoutManger());
+    }
 
-        mBaseAdapter = initAdapter();
-        mRecyclerView.setAdapter(mBaseAdapter);
+    private void initRefreshListener() {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000);//传入false表示刷新失败
+            public void onRefresh(@NonNull RefreshLayout refreshlayout) { //下拉刷新
+                RvBaseFragment.this.onRefresh();
+                refreshlayout.finishRefresh(1000);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000);//传入false表示加载失败
+            public void onLoadMore(@NonNull RefreshLayout refreshlayout) { //上拉加载
+                RvBaseFragment.this.onLoadMore();
+                refreshlayout.finishLoadMore(1000);
             }
         });
         refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()));
-//设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()));
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                setRefreshing(true);
-//                onPullRefresh();
-//            }
-//        });
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()).setPrimaryColor(getResources().getColor(R.color.material_gray_400)));
+    }
 
-                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                if (layoutManager instanceof LinearLayoutManager) {
-                    mLastVisiblePosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
-                } else if (layoutManager instanceof GridLayoutManager) {
-                    mLastVisiblePosition = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
-                } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-                    StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-                    int[] lastPositions = new int[staggeredGridLayoutManager.getSpanCount()];
-                    staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
-                    mLastVisiblePosition = findMax(lastPositions);
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING && canShowLoadMore()) {
-                    //计算拇指滚动距离。大于0表示在拖拽
-                    if (recyclerView.computeVerticalScrollOffset() > 0) {
-                        boolean isBottom = false;
-                        isBottom = !recyclerView.canScrollVertically(1);
-                        if (isBottom) {
-                            // 说明滚动到底部,触发加载更多
-                            showLoadMore();
-                            onLoadMore();
-                        }
-                    }
-                }
-            }
-        });
-        onRecyclerViewInitialized();
+    private void initRecycleView() {
+        mBaseAdapter = initAdapter();
+        mRecyclerView.setAdapter(mBaseAdapter);
     }
 
     /**
@@ -135,38 +106,11 @@ public abstract class RvBaseFragment<T> extends Fragment {
      * @return
      */
     private boolean canShowLoadMore() {
-        if (mBaseAdapter.isShowEmpty() || mBaseAdapter.isShowLoadMore() || mBaseAdapter.isShowError() || mBaseAdapter.isShowLoading()) {
+        if (mBaseAdapter.isShowEmpty() || mBaseAdapter.isShowError() || mBaseAdapter.isShowLoading()) {
             Log.i(TAG, "can not show loadMore");
             return false;
         }
         return true;
-    }
-
-    /**
-     * hide load more progress
-     */
-    public void hideLoadMore() {
-        if (mBaseAdapter != null) {
-            mBaseAdapter.hideLoadMore();
-        }
-    }
-
-    /**
-     * show load more progress
-     */
-    private void showLoadMore() {
-        View loadMoreView = customLoadMoreView();
-        if (loadMoreView == null) {
-            mBaseAdapter.showLoadMore();
-        } else {
-            mBaseAdapter.showLoadMore(loadMoreView);
-        }
-
-    }
-
-    protected View customLoadMoreView() {
-        //如果需要自定义LoadMore View,子类实现这个方法
-        return null;
     }
 
     /**
@@ -213,7 +157,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
     /**
      * 下拉刷新
      */
-    public abstract void onPullRefresh();
+    public abstract void onRefresh();
 
     /**
      * 上拉加载更多
