@@ -16,9 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.example.jun.jiuzhou.R;
-import com.example.jun.jiuzhou.RVUtils.base.Cell;
-import com.example.jun.jiuzhou.RVUtils.base.RVSimpleAdapter;
+import com.luxiaochun.recyclerviewhelper.R;
+import com.luxiaochun.recyclerviewhelper.base.Cell;
+import com.luxiaochun.recyclerviewhelper.base.RVSimpleAdapter;
 
 import java.util.List;
 
@@ -49,13 +49,12 @@ public abstract class RvBaseFragment<T> extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        titleLayout = (FrameLayout) view.findViewById(R.id.title_layout);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.base_refresh_layout);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.base_fragment_rv);
+        titleLayout = view.findViewById(R.id.title_layout);
+        mSwipeRefreshLayout = view.findViewById(R.id.base_refresh_layout);
+        mRecyclerView = view.findViewById(R.id.base_fragment_rv);
         mRecyclerView.setLayoutManager(initLayoutManger());
 
         mBaseAdapter = initAdapter();
-//        mBaseAdapter.setOnViewHolderHelper(this);
         mRecyclerView.setAdapter(mBaseAdapter);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

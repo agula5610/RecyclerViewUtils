@@ -2,7 +2,7 @@ package com.luxiaochun.recyclerviewhelper.cell;
 
 import android.view.View;
 
-import com.example.jun.jiuzhou.RVUtils.base.RVBaseCell;
+import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
 
 
 /**

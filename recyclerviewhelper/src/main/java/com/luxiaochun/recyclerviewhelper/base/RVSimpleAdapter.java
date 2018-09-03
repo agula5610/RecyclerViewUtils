@@ -6,10 +6,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jun.jiuzhou.RVUtils.cell.EmptyCell;
-import com.example.jun.jiuzhou.RVUtils.cell.ErrorCell;
-import com.example.jun.jiuzhou.RVUtils.cell.LoadMoreCell;
-import com.example.jun.jiuzhou.RVUtils.cell.LoadingCell;
+import com.luxiaochun.recyclerviewhelper.cell.EmptyCell;
+import com.luxiaochun.recyclerviewhelper.cell.ErrorCell;
+import com.luxiaochun.recyclerviewhelper.cell.LoadMoreCell;
+import com.luxiaochun.recyclerviewhelper.cell.LoadingCell;
 
 
 /**

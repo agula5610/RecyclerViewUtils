@@ -1,5 +1,6 @@
 package com.luxiaochun.recyclerviewhelper.base;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import java.util.List;
 public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RVBaseViewHolder> {
     public static final String TAG = "RVBaseAdapter";
     protected List<C> mData;
-    protected OnViewHolderHelper helper;
 
     public RVBaseAdapter() {
         mData = new ArrayList<>();
@@ -24,10 +24,6 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
     public void setData(List<C> data) {
         addAll(data);
         notifyDataSetChanged();
-    }
-
-    public void setOnViewHolderHelper(OnViewHolderHelper helper) {
-        this.helper = helper;
     }
 
     public List<C> getData() {
@@ -47,7 +43,6 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
     @Override
     public void onBindViewHolder(RVBaseViewHolder holder, int position) {
         mData.get(position).bindViewHolder(holder, position);
-//            helper.onBind(holder, position);
     }
 
     @Override
