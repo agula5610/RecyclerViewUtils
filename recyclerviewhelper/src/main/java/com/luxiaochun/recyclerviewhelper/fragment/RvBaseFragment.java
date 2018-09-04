@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,16 +35,11 @@ public abstract class RvBaseFragment<T> extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RVSimpleAdapter mBaseAdapter;
     protected SmartRefreshLayout refreshLayout;
-    /**
-     * RecyclerView 最后可见Item在Adapter中的位置
-     */
-    private int mLastVisiblePosition = -1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.rv_base_fragment_layout, null);
-        return view;
+        return inflater.inflate(R.layout.rv_base_fragment_layout, null);
     }
 
     @Override
@@ -68,15 +62,15 @@ public abstract class RvBaseFragment<T> extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) { //下拉刷新
+                refreshlayout.finishRefresh(500);
                 RvBaseFragment.this.onRefresh();
-                refreshlayout.finishRefresh(1000);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshlayout) { //上拉加载
+                refreshlayout.finishLoadMore(500);
                 RvBaseFragment.this.onLoadMore();
-                refreshlayout.finishLoadMore(1000);
             }
         });
         refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()));
@@ -98,35 +92,6 @@ public abstract class RvBaseFragment<T> extends Fragment {
             return;
         }
         titleLayout.addView(view);
-    }
-
-    /**
-     * 判断是否可以显示LoadMore
-     *
-     * @return
-     */
-    private boolean canShowLoadMore() {
-        if (mBaseAdapter.isShowEmpty() || mBaseAdapter.isShowError() || mBaseAdapter.isShowLoading()) {
-            Log.i(TAG, "can not show loadMore");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * 获取组数最大值
-     *
-     * @param lastPositions
-     * @return
-     */
-    private int findMax(int[] lastPositions) {
-        int max = lastPositions[0];
-        for (int value : lastPositions) {
-            if (value > max) {
-                max = value;
-            }
-        }
-        return max;
     }
 
     /**
