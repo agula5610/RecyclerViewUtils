@@ -1,8 +1,6 @@
-package com.luxiaochun.recyclerviewhelper.cell;
+package com.luxiaochun.recyclerviewhelper.base;
 
 import android.view.View;
-
-import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
 
 
 /**

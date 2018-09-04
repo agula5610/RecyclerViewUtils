@@ -2,7 +2,8 @@ package com.luxiaochun.recyclerviewhelper.cell;
 
 
 import com.luxiaochun.recyclerviewhelper.R;
-import com.luxiaochun.recyclerviewhelper.base.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.base.RVAbsStateCell;
+import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
 
 /**
  * ProjectName: JiuZhou

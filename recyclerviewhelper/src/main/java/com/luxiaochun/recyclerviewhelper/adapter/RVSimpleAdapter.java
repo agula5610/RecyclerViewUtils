@@ -1,10 +1,6 @@
-package com.luxiaochun.recyclerviewhelper.base;
+package com.luxiaochun.recyclerviewhelper.adapter;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.luxiaochun.recyclerviewhelper.cell.EmptyCell;
 import com.luxiaochun.recyclerviewhelper.cell.ErrorCell;
@@ -33,59 +29,9 @@ public class RVSimpleAdapter extends RVBaseAdapter {
         mLoadingCell = new LoadingCell(null);
     }
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        //处理GridView 布局
-        if (manager instanceof GridLayoutManager) {
-            final GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    int viewType = getItemViewType(position);
-                    return (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId
-                            || viewType == LoadingCell.DefaultResId) ? gridLayoutManager.getSpanCount() : 1;
-                }
-            });
-        }
-
-    }
-
-    @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        // 处理StaggeredGridLayoutManager 显示这个Span
-        int position = holder.getAdapterPosition();
-        int viewType = getItemViewType(position);
-        if (isStaggeredGridLayout(holder)) {
-            if (viewType == ErrorCell.DefaultResId || viewType == EmptyCell.DefaultResId
-                    || viewType == LoadingCell.DefaultResId) {
-
-                StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
-                //设置显示整个span
-                params.setFullSpan(true);
-            }
-        }
-
-    }
-
-    /**
-     * 判断是否是瀑布流布局
-     *
-     * @param holder
-     * @return
-     */
-    private boolean isStaggeredGridLayout(RecyclerView.ViewHolder holder) {
-        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        if (layoutParams != null && layoutParams instanceof StaggeredGridLayoutManager.LayoutParams) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * 显示LoadingView
-     * <p>请求数据时调用，数据请求完毕时调用{@link #hideLoading }</p>
+     * 请求数据时调用，数据请求完毕时调用{@link #hideLoading }
      */
     public void showLoading() {
         clear();
@@ -206,7 +152,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     }
 
     /**
-     * 检查列表是否已经包含了这4种Cell
+     * 检查列表是否已经包含了这3种Cell
      */
     private void checkNotContainSpecailCell() {
         if (mData.contains(mEmptyCell)) {

@@ -13,8 +13,11 @@ import android.widget.FrameLayout;
 
 import com.luxiaochun.recyclerviewhelper.R;
 import com.luxiaochun.recyclerviewhelper.base.Cell;
-import com.luxiaochun.recyclerviewhelper.base.RVSimpleAdapter;
+import com.luxiaochun.recyclerviewhelper.adapter.RVSimpleAdapter;
+import com.luxiaochun.recyclerviewhelper.utils.colorUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -73,8 +76,20 @@ public abstract class RvBaseFragment<T> extends Fragment {
                 RvBaseFragment.this.onLoadMore();
             }
         });
-        refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()).setPrimaryColor(getResources().getColor(R.color.material_gray_400)));
+        refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()).setPrimaryColor(colorUtil.getColorPrimary(this.getActivity())));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(this.getActivity()).setPrimaryColor(getResources().getColor(R.color.material_gray_300)));
+    }
+
+    /**
+     * 设置
+     * @param header
+     */
+    protected void setRefreshHeader(RefreshHeader header) {
+        refreshLayout.setRefreshHeader(header);
+    }
+
+    protected void setRefreshFooter(RefreshFooter footer) {
+        refreshLayout.setRefreshFooter(footer);
     }
 
     private void initRecycleView() {
@@ -87,7 +102,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
      *
      * @param view
      */
-    public void addTitleView(View view) {
+    protected void addTitleView(View view) {
         if (view == null) {
             return;
         }
@@ -112,6 +127,24 @@ public abstract class RvBaseFragment<T> extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         return manager;
+    }
+
+    /**
+     * 是否启用下拉刷新功能
+     *
+     * @param enable
+     */
+    protected void setEnableRefresh(boolean enable) {
+        refreshLayout.setEnableRefresh(enable);
+    }
+
+    /**
+     * 是否启用上拉加载功能
+     *
+     * @param enable
+     */
+    protected void setEnableLoadMore(boolean enable) {
+        refreshLayout.setEnableLoadMore(enable);
     }
 
     /**

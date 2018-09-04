@@ -1,10 +1,11 @@
-package com.luxiaochun.recyclerviewhelper.base;
+package com.luxiaochun.recyclerviewhelper.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -50,6 +51,8 @@ public class RVBaseViewHolder extends RecyclerView.ViewHolder {
     public Button getButton(int resId){
         return retrieveView(resId);
     }
+
+    public LinearLayout getLinearLayout(int resId){return retrieveView(resId);}
 
     public void setText(int resId,CharSequence text){
         getTextView(resId).setText(text);

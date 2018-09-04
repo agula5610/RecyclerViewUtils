@@ -1,9 +1,12 @@
-package com.luxiaochun.recyclerviewhelper.base;
+package com.luxiaochun.recyclerviewhelper.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
+import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

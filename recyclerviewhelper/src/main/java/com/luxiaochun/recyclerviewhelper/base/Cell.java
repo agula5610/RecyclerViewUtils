@@ -1,5 +1,7 @@
 package com.luxiaochun.recyclerviewhelper.base;
 
+import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
+
 /**
  * ProjectName: JiuZhou
  * Author: jun
