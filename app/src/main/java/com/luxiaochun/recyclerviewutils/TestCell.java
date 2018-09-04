@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
-import com.luxiaochun.recyclerviewhelper.base.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
 
 
 /**

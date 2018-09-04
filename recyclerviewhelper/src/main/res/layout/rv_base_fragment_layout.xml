@@ -16,13 +16,13 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
         app:srlAccentColor="@android:color/white"
         app:srlEnablePreviewInEditMode="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/base_fragment_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
