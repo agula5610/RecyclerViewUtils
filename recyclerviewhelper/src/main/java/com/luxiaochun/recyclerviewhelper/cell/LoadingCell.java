@@ -11,7 +11,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
  * Date: 2018-01-10 16:06
  */
 public class LoadingCell extends RVAbsStateCell {
-    public static int DefaultResId = R.layout.rv_loading_layout;
+    private static int DefaultResId = R.layout.rv_loading_layout;
 
     public LoadingCell(Object o) {
         super(o);

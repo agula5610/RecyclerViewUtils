@@ -11,7 +11,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
  * Date: 2018-01-10 16:06
  */
 public class EmptyCell extends RVAbsStateCell {
-    public static int DefaultResId = R.layout.rv_empty_layout;
+    private static int DefaultResId = R.layout.rv_empty_layout;
 
     public EmptyCell(Object o) {
         super(o);

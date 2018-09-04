@@ -11,7 +11,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
  * Date: 2018-01-10 16:06
  */
 public class ErrorCell extends RVAbsStateCell {
-    public static int DefaultResId = R.layout.rv_error_layout;
+    private static int DefaultResId = R.layout.rv_error_layout;
 
     public ErrorCell(Object o) {
         super(o);
