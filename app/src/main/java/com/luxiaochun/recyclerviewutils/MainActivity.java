@@ -9,7 +9,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerViewFragment fragment = RecyclerViewFragment.newInstance("");
+        RecyclerViewFragment fragment = RecyclerViewFragment.newInstance();
         ActivityUtils.addFragmentToActivity(
                 getSupportFragmentManager(), fragment, R.id.fragment_container);
     }

@@ -38,6 +38,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RVSimpleAdapter mBaseAdapter;
     protected SmartRefreshLayout refreshLayout;
+    protected int pageNumber = 1;
 
     @Nullable
     @Override
@@ -66,6 +67,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshlayout) { //下拉刷新
                 refreshlayout.finishRefresh(500);
+                pageNumber = 1;
                 RvBaseFragment.this.onRefresh();
             }
         });
@@ -73,6 +75,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshlayout) { //上拉加载
                 refreshlayout.finishLoadMore(500);
+                pageNumber++;
                 RvBaseFragment.this.onLoadMore();
             }
         });
@@ -82,6 +85,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
 
     /**
      * 设置
+     *
      * @param header
      */
     protected void setRefreshHeader(RefreshHeader header) {

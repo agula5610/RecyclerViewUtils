@@ -15,24 +15,15 @@ import java.util.List;
  * Date: 2018-01-15 14:44
  */
 public class RecyclerViewFragment extends RvBaseFragment {
-    private RecyclerViewFragment mFragment;
 
-
-    public static RecyclerViewFragment newInstance(String param1) {
+    public static RecyclerViewFragment newInstance() {
         RecyclerViewFragment fragment = new RecyclerViewFragment();
-        Bundle args = new Bundle();
-        args.putString("param1", param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFragment = this;
-        if (getArguments() != null) {
-//            searchContent = getArguments().getString("param1");
-        }
     }
 
     @Override
@@ -58,7 +49,7 @@ public class RecyclerViewFragment extends RvBaseFragment {
     @Override
     public void onLoadMore() {
         ArrayList<PersonBean> dataList = new ArrayList<>();
-        for (int i = 10; i < 20; i++) {
+        for (int i = 10 * (pageNumber - 1); i < pageNumber * 10; i++) {
             PersonBean bean = new PersonBean();
             bean.setName("姓名" + i + "");
             bean.setAge("20");
