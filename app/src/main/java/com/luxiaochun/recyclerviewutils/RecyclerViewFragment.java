@@ -14,7 +14,7 @@ import java.util.List;
  * Author: jun
  * Date: 2018-01-15 14:44
  */
-public class RecyclerViewFragment extends RvBaseFragment {
+public class RecyclerViewFragment extends RvBaseFragment<PersonBean> {
 
     public static RecyclerViewFragment newInstance() {
         RecyclerViewFragment fragment = new RecyclerViewFragment();
@@ -60,10 +60,10 @@ public class RecyclerViewFragment extends RvBaseFragment {
     }
 
     @Override
-    protected List<Cell> getCells(List list) {
+    protected List<Cell> getCells(List<PersonBean> list) {
         List<Cell> cells = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            PersonBean bean = (PersonBean) list.get(i);
+            PersonBean bean = list.get(i);
             cells.add(new TestCell(bean));
         }
         return cells;
