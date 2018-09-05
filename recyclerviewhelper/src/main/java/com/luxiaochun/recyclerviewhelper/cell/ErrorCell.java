@@ -23,6 +23,11 @@ public class ErrorCell extends RVAbsStateCell {
     }
 
     @Override
+    public void releaseResource() {
+
+    }
+
+    @Override
     public int getItemType() {
         return DefaultResId;
     }

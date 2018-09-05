@@ -1,15 +1,11 @@
 package com.luxiaochun.recyclerviewhelper.base;
 
-import android.view.View;
-
-
 /**
  * ProjectName: 2017_zhifa_standard
  * Author: jun
  * Date: 2018-01-11 08:53
  */
 public abstract class RVAbsStateCell extends RVBaseCell<Object> {
-    protected View mView;
 
     public RVAbsStateCell(Object o) {
         super(o);
@@ -21,12 +17,4 @@ public abstract class RVAbsStateCell extends RVBaseCell<Object> {
      * @param resId
      */
     protected abstract void setCustomView(int resId);
-
-
-    @Override
-    public void releaseResource() {
-        if (mView != null) {
-            mView = null;
-        }
-    }
 }

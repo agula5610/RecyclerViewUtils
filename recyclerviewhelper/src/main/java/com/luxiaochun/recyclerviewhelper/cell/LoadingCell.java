@@ -24,6 +24,11 @@ public class LoadingCell extends RVAbsStateCell {
 
 
     @Override
+    public void releaseResource() {
+
+    }
+
+    @Override
     public int getItemType() {
         return DefaultResId;
     }
