@@ -1,7 +1,5 @@
 package com.luxiaochun.recyclerviewhelper.adapter;
 
-import android.view.View;
-
 import com.luxiaochun.recyclerviewhelper.cell.EmptyCell;
 import com.luxiaochun.recyclerviewhelper.cell.ErrorCell;
 import com.luxiaochun.recyclerviewhelper.cell.LoadingCell;
@@ -31,7 +29,7 @@ public class RVAdapter extends RVBaseAdapter {
 
     /**
      * 显示LoadingView
-     * 请求数据时调用，数据请求完毕时调用{@link #hideLoading }
+     * 请求数据时调用，数据请求完毕时调用{@link #removeLoading }
      */
     public void showLoading() {
         clear();
@@ -42,23 +40,19 @@ public class RVAdapter extends RVBaseAdapter {
     /**
      * 列表Loading 状态显示的View，默认全屏高度
      *
-     * @param loadingView 自定义的加载视图
+     * @param loadingViewId 自定义的加载视图
      */
-    public void showLoading(View loadingView) {
-        if (loadingView == null) {
-            showLoading();
-            return;
-        }
+    public void showLoading(int loadingViewId) {
         clear();
         mIsShowLoading = true;
-        mLoadingCell.setCustomView(loadingView.getId());
+        mLoadingCell.setCustomView(loadingViewId);
         add(mLoadingCell);
     }
 
     /**
      * hide Loading view
      */
-    public void hideLoading() {
+    public void removeLoading() {
         if (mData.contains(mLoadingCell)) {
             mData.remove(mLoadingCell);
             mIsShowLoading = false;
@@ -82,23 +76,19 @@ public class RVAdapter extends RVBaseAdapter {
     /**
      * 指定列表发生错误时显示的View，默认为全屏高度
      *
-     * @param errorView  发生错误时显示的视图
+     * @param errorViewId  发生错误时显示的视图
      */
-    public void showError(View errorView) {
-        if (errorView == null) {
-            showError();
-            return;
-        }
+    public void showError(int errorViewId) {
         clear();
         mIsShowError = true;
-        mErrorCell.setCustomView(errorView.getId());
+        mErrorCell.setCustomView(errorViewId);
         add(mErrorCell);
     }
 
     /**
      * 隐藏错误提示
      */
-    public void hideErorr() {
+    public void removeErorr() {
         if (mData.contains(mErrorCell)) {
             remove(mErrorCell);
             mIsShowError = false;
@@ -122,24 +112,20 @@ public class RVAdapter extends RVBaseAdapter {
     /**
      * 显示指定的空状态View,默认显示屏幕高度
      *
-     * @param emptyView
-     * @see {@link #showEmpty(View)}
+     * @param emptyViewId
+     * @see {@link #showEmpty(int)}
      */
-    public void showEmpty(View emptyView) {
-        if (emptyView == null) {
-            showEmpty();
-            return;
-        }
+    public void showEmpty(int emptyViewId) {
         clear();
         mIsShowEmpty = true;
-        mEmptyCell.setCustomView(emptyView.getId());
+        mEmptyCell.setCustomView(emptyViewId);
         add(mEmptyCell);
     }
 
     /**
      * 隐藏空View
      */
-    public void hideEmpty() {
+    public void removeEmpty() {
         if (mData.contains(mEmptyCell)) {
             remove(mEmptyCell);
             mIsShowEmpty = false;
@@ -148,21 +134,6 @@ public class RVAdapter extends RVBaseAdapter {
 
     public boolean isShowEmpty() {
         return mIsShowEmpty;
-    }
-
-    /**
-     * 检查列表是否已经包含了这3种Cell
-     */
-    private void checkNotContainSpecailCell() {
-        if (mData.contains(mEmptyCell)) {
-            mData.remove(mEmptyCell);
-        }
-        if (mData.contains(mErrorCell)) {
-            mData.remove(mErrorCell);
-        }
-        if (mData.contains(mLoadingCell)) {
-            mData.remove(mLoadingCell);
-        }
     }
 
     /**

@@ -11,7 +11,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
  * Date: 2018-01-10 16:06
  */
 public class ErrorCell extends RVAbsStateCell {
-    private static int DefaultResId = R.layout.rv_error_layout;
+    private int defaultResId = R.layout.rv_error_layout;
 
     public ErrorCell(Object o) {
         super(o);
@@ -19,7 +19,7 @@ public class ErrorCell extends RVAbsStateCell {
 
     @Override
     public void setCustomView(int resId) {
-        DefaultResId = resId;
+        defaultResId = resId;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ErrorCell extends RVAbsStateCell {
 
     @Override
     public int getItemType() {
-        return DefaultResId;
+        return defaultResId;
     }
 
     @Override

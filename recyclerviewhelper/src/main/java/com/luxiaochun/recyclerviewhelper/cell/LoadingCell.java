@@ -11,7 +11,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
  * Date: 2018-01-10 16:06
  */
 public class LoadingCell extends RVAbsStateCell {
-    private static int DefaultResId = R.layout.rv_loading_layout;
+    private int defaultResId = R.layout.rv_loading_layout;
 
     public LoadingCell(Object o) {
         super(o);
@@ -19,7 +19,7 @@ public class LoadingCell extends RVAbsStateCell {
 
     @Override
     public void setCustomView(int resId) {
-        DefaultResId = resId;
+        defaultResId = resId;
     }
 
 
@@ -30,7 +30,7 @@ public class LoadingCell extends RVAbsStateCell {
 
     @Override
     public int getItemType() {
-        return DefaultResId;
+        return defaultResId;
     }
 
     @Override
