@@ -13,11 +13,11 @@ import android.widget.TextView;
  * Author: jun
  * Date: 2018-01-10 15:59
  */
-public class RVBaseViewHolder extends RecyclerView.ViewHolder {
+public class ViewHolderRocket extends RecyclerView.ViewHolder {
     private SparseArray<View> views;
     private View mItemView;
 
-    public RVBaseViewHolder(View itemView) {
+    public ViewHolderRocket(View itemView) {
         super(itemView);
         views = new SparseArray<>();
         mItemView = itemView;

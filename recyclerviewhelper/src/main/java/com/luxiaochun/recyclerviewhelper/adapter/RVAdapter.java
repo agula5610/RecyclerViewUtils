@@ -12,7 +12,7 @@ import com.luxiaochun.recyclerviewhelper.cell.LoadingCell;
  * Author: jun
  * Date: 2018-01-11 08:43
  */
-public class RVSimpleAdapter extends RVBaseAdapter {
+public class RVAdapter extends RVBaseAdapter {
 
     private EmptyCell mEmptyCell;
     private ErrorCell mErrorCell;
@@ -22,7 +22,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     private boolean mIsShowLoading = false;
     private boolean mIsShowEmpty = false;
 
-    public RVSimpleAdapter() {
+    public RVAdapter() {
         super();
         mEmptyCell = new EmptyCell(null);
         mErrorCell = new ErrorCell(null);
@@ -42,7 +42,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     /**
      * 列表Loading 状态显示的View，默认全屏高度
      *
-     * @param loadingView
+     * @param loadingView 自定义的加载视图
      */
     public void showLoading(View loadingView) {
         if (loadingView == null) {
@@ -71,7 +71,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
 
     /**
      * 显示错误提示View
-     * <p>当网络请求发生错误，需要在界面给出错误提示时，调用{@link #showError}</p>
+     * 当网络请求发生错误，需要在界面给出错误提示时，调用{@link #showError}
      */
     public void showError() {
         clear();
@@ -82,8 +82,7 @@ public class RVSimpleAdapter extends RVBaseAdapter {
     /**
      * 指定列表发生错误时显示的View，默认为全屏高度
      *
-     * @param errorView
-     * @see {@link #showError(View)}
+     * @param errorView  发生错误时显示的视图
      */
     public void showError(View errorView) {
         if (errorView == null) {

@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
-import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.base.RVCell;
+import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
 
 
 /**
@@ -13,7 +13,7 @@ import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
  * Author: jun
  * Date: 2018-01-15 15:06
  */
-public class TestCell extends RVBaseCell<PersonBean> {
+public class TestCell extends RVCell<PersonBean> {
 
     public TestCell(PersonBean bean) {
         super(bean);
@@ -30,7 +30,7 @@ public class TestCell extends RVBaseCell<PersonBean> {
     }
 
     @Override
-    public void bindViewHolder(final RVBaseViewHolder holder, final int position) {
+    public void bindViewHolder(final ViewHolderRocket holder, final int position) {
         holder.setText(R.id.store_name_tv, mData.getName());
         holder.setText(R.id.store_address_tv, mData.getAge());
         holder.setText(R.id.store_owner_tv, mData.getPhone());

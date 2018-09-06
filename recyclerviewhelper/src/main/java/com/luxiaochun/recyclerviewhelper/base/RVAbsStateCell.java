@@ -5,7 +5,7 @@ package com.luxiaochun.recyclerviewhelper.base;
  * Author: jun
  * Date: 2018-01-11 08:53
  */
-public abstract class RVAbsStateCell extends RVBaseCell<Object> {
+public abstract class RVAbsStateCell extends RVCell<Object> {
 
     public RVAbsStateCell(Object o) {
         super(o);

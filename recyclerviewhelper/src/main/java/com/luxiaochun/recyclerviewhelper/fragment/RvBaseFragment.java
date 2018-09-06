@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 
 import com.luxiaochun.recyclerviewhelper.R;
 import com.luxiaochun.recyclerviewhelper.base.Cell;
-import com.luxiaochun.recyclerviewhelper.adapter.RVSimpleAdapter;
+import com.luxiaochun.recyclerviewhelper.adapter.RVAdapter;
 import com.luxiaochun.recyclerviewhelper.utils.colorUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshFooter;
@@ -36,7 +36,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
     public static final String TAG = "RvBaseFragment";
     private FrameLayout titleLayout;
     protected RecyclerView mRecyclerView;
-    protected RVSimpleAdapter mBaseAdapter;
+    protected RVAdapter mBaseAdapter;
     protected SmartRefreshLayout refreshLayout;
     protected int pageNumber = 1;
 
@@ -118,8 +118,8 @@ public abstract class RvBaseFragment<T> extends Fragment {
      *
      * @return
      */
-    protected RVSimpleAdapter initAdapter() {
-        return new RVSimpleAdapter();
+    protected RVAdapter initAdapter() {
+        return new RVAdapter();
     }
 
     /**

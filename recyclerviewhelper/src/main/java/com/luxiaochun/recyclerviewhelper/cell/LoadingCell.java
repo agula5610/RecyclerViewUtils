@@ -3,7 +3,7 @@ package com.luxiaochun.recyclerviewhelper.cell;
 
 import com.luxiaochun.recyclerviewhelper.R;
 import com.luxiaochun.recyclerviewhelper.base.RVAbsStateCell;
-import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
 
 /**
  * ProjectName: JiuZhou
@@ -34,7 +34,7 @@ public class LoadingCell extends RVAbsStateCell {
     }
 
     @Override
-    public void bindViewHolder(RVBaseViewHolder holder, int position) {
+    public void bindViewHolder(ViewHolderRocket holder, int position) {
 
     }
 }

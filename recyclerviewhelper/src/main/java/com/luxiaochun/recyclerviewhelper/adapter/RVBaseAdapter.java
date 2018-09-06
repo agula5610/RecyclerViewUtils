@@ -5,8 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.luxiaochun.recyclerviewhelper.base.RVBaseCell;
-import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.base.RVCell;
+import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +16,12 @@ import java.util.List;
  * Author: jun
  * Date: 2018-01-10 16:06
  */
-public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RVBaseViewHolder> {
-    public static final String TAG = "RVBaseAdapter";
+public class RVBaseAdapter<C extends RVCell> extends RecyclerView.Adapter<ViewHolderRocket> {
+    private static final String TAG = "RVBaseAdapter";
     protected List<C> mData;
 
     public RVBaseAdapter() {
         mData = new ArrayList<>();
-    }
-
-    public void setData(List<C> data) {
-        addAll(data);
-        notifyDataSetChanged();
     }
 
     public List<C> getData() {
@@ -39,17 +34,17 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
     }
 
     @Override
-    public RVBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RVBaseViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+    public ViewHolderRocket onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolderRocket(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(RVBaseViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolderRocket holder, int position) {
         mData.get(position).bindViewHolder(holder, position);
     }
 
     @Override
-    public void onViewDetachedFromWindow(RVBaseViewHolder holder) {
+    public void onViewDetachedFromWindow(ViewHolderRocket holder) {
         super.onViewDetachedFromWindow(holder);
         Log.e(TAG, "onViewDetachedFromWindow invoke...");
         //释放资源
@@ -74,12 +69,12 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
     public void add(C cell) {
         mData.add(cell);
         int index = mData.indexOf(cell);
-        notifyItemChanged(index);
+        notifyItemInserted(index);
     }
 
     public void add(int index, C cell) {
         mData.add(index, cell);
-        notifyItemChanged(index);
+        notifyItemInserted(index);
     }
 
     /**
@@ -105,9 +100,7 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
         if ((start + count) > mData.size()) {
             return;
         }
-
         mData.subList(start, start + count).clear();
-
         notifyItemRangeRemoved(start, count);
     }
 
@@ -123,7 +116,7 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
         }
         Log.e(TAG, "addAll cell size:" + cells.size());
         mData.addAll(cells);
-        notifyItemRangeChanged(mData.size() - cells.size(), mData.size());
+        notifyItemRangeInserted(mData.size() - cells.size(), mData.size());
     }
 
     public void addAll(int index, List<C> cells) {
@@ -131,7 +124,7 @@ public class RVBaseAdapter<C extends RVBaseCell> extends RecyclerView.Adapter<RV
             return;
         }
         mData.addAll(index, cells);
-        notifyItemRangeChanged(index, index + cells.size());
+        notifyItemRangeInserted(index, index + cells.size());
     }
 
     public void clear() {

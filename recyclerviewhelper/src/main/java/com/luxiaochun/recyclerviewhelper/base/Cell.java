@@ -1,6 +1,6 @@
 package com.luxiaochun.recyclerviewhelper.base;
 
-import com.luxiaochun.recyclerviewhelper.viewholder.RVBaseViewHolder;
+import com.luxiaochun.recyclerviewhelper.viewholder.ViewHolderRocket;
 
 /**
  * ProjectName: JiuZhou
@@ -27,6 +27,6 @@ public interface Cell {
      * @param position
      * @return
      */
-    void bindViewHolder(RVBaseViewHolder holder, int position);
+    void bindViewHolder(ViewHolderRocket holder, int position);
 
 }

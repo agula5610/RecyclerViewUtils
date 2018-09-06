@@ -5,10 +5,10 @@ package com.luxiaochun.recyclerviewhelper.base;
  * Author: jun
  * Date: 2018-01-10 16:12
  */
-public abstract class RVBaseCell<T> implements Cell {
+public abstract class RVCell<T> implements Cell {
     public T mData;
 
-    public RVBaseCell(T t) {
+    public RVCell(T t) {
         mData = t;
     }
 

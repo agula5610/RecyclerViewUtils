@@ -14,7 +14,7 @@ import java.util.List;
  * Author: jun
  * Date: 2018-01-15 14:44
  */
-public class RecyclerViewFragment extends RvBaseFragment<PersonBean> {
+public class RecyclerViewFragment extends RvBaseFragment{
 
     public static RecyclerViewFragment newInstance() {
         RecyclerViewFragment fragment = new RecyclerViewFragment();
@@ -38,11 +38,21 @@ public class RecyclerViewFragment extends RvBaseFragment<PersonBean> {
             dataList.add(bean);
         }
         mBaseAdapter.hideLoading();
-        mBaseAdapter.setData(getCells(dataList));
+        mBaseAdapter.addAll(getCells(dataList));
     }
 
     @Override
     public void onRefresh() {
+        mBaseAdapter.clear();
+        ArrayList<PersonBean> dataList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            PersonBean bean = new PersonBean();
+            bean.setName("姓名" + i + "");
+            bean.setAge("20");
+            bean.setPhone("18956321458");
+            dataList.add(bean);
+        }
+        mBaseAdapter.addAll(getCells(dataList));
         Toast.makeText(this.getActivity(), "更新啦", Toast.LENGTH_SHORT).show();
     }
 
@@ -60,10 +70,10 @@ public class RecyclerViewFragment extends RvBaseFragment<PersonBean> {
     }
 
     @Override
-    protected List<Cell> getCells(List<PersonBean> list) {
+    protected List<Cell> getCells(List list) {
         List<Cell> cells = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            PersonBean bean = list.get(i);
+            PersonBean bean = (PersonBean) list.get(i);
             cells.add(new TestCell(bean));
         }
         return cells;
