@@ -32,8 +32,8 @@ import java.util.List;
  * Author: jun
  * Date: 2018-01-10 16:06
  */
-public abstract class RvBaseFragment<T> extends Fragment {
-    public static final String TAG = "RvBaseFragment";
+public abstract class RvFragment<T> extends Fragment {
+    public static final String TAG = "RvFragment";
     private FrameLayout titleLayout;
     protected RecyclerView mRecyclerView;
     protected RVAdapter mBaseAdapter;
@@ -68,7 +68,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
             public void onRefresh(@NonNull RefreshLayout refreshlayout) { //下拉刷新
                 refreshlayout.finishRefresh(500);
                 pageNumber = 1;
-                RvBaseFragment.this.onRefresh();
+                RvFragment.this.onRefresh();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -76,7 +76,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
             public void onLoadMore(@NonNull RefreshLayout refreshlayout) { //上拉加载
                 refreshlayout.finishLoadMore(500);
                 pageNumber++;
-                RvBaseFragment.this.onLoadMore();
+                RvFragment.this.onLoadMore();
             }
         });
         refreshLayout.setRefreshHeader(new ClassicsHeader(this.getActivity()).setPrimaryColor(colorUtil.getColorPrimary(this.getActivity())));
@@ -84,7 +84,7 @@ public abstract class RvBaseFragment<T> extends Fragment {
     }
 
     /**
-     * 设置
+     * 设置下拉刷新Header
      *
      * @param header
      */
@@ -92,6 +92,10 @@ public abstract class RvBaseFragment<T> extends Fragment {
         refreshLayout.setRefreshHeader(header);
     }
 
+    /**
+     * 设置上拉加载Footer
+     * @param footer
+     */
     protected void setRefreshFooter(RefreshFooter footer) {
         refreshLayout.setRefreshFooter(footer);
     }

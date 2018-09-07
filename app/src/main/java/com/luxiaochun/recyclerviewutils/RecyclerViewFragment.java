@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.luxiaochun.recyclerviewhelper.base.Cell;
-import com.luxiaochun.recyclerviewhelper.fragment.RvBaseFragment;
+import com.luxiaochun.recyclerviewhelper.fragment.RvFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * Author: jun
  * Date: 2018-01-15 14:44
  */
-public class RecyclerViewFragment extends RvBaseFragment{
+public class RecyclerViewFragment extends RvFragment {
 
     public static RecyclerViewFragment newInstance() {
         RecyclerViewFragment fragment = new RecyclerViewFragment();
@@ -37,7 +37,7 @@ public class RecyclerViewFragment extends RvBaseFragment{
             bean.setPhone("18956321458");
             dataList.add(bean);
         }
-        mBaseAdapter.hideLoading();
+        mBaseAdapter.removeLoading();
         mBaseAdapter.addAll(getCells(dataList));
     }
 
