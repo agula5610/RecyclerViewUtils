@@ -1,4 +1,4 @@
-package com.luxiaochun.recyclerviewhelper.fragment;
+package com.luxiaochun.recyclerviewhelper;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.luxiaochun.recyclerviewhelper.R;
 import com.luxiaochun.recyclerviewhelper.base.Cell;
 import com.luxiaochun.recyclerviewhelper.adapter.RVAdapter;
 import com.luxiaochun.recyclerviewhelper.utils.colorUtil;

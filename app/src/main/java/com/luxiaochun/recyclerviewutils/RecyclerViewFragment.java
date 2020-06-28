@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.luxiaochun.recyclerviewhelper.base.Cell;
-import com.luxiaochun.recyclerviewhelper.fragment.RvFragment;
+import com.luxiaochun.recyclerviewhelper.RvFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,6 @@ public class RecyclerViewFragment extends RvFragment {
 
     @Override
     public void onRecyclerViewInitialized() {
-        mBaseAdapter.showLoading();
         ArrayList<PersonBean> dataList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             PersonBean bean = new PersonBean();
@@ -37,7 +36,6 @@ public class RecyclerViewFragment extends RvFragment {
             bean.setPhone("18956321458");
             dataList.add(bean);
         }
-        mBaseAdapter.removeLoading();
         mBaseAdapter.addAll(getCells(dataList));
     }
 
